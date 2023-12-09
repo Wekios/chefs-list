@@ -1,14 +1,5 @@
 import GlobalStyles from "@mui/joy/GlobalStyles";
-import Box from "@mui/joy/Box";
-import Button from "@mui/joy/Button";
-import Checkbox from "@mui/joy/Checkbox";
-import Divider from "@mui/joy/Divider";
-import FormControl from "@mui/joy/FormControl";
-import FormLabel, { formLabelClasses } from "@mui/joy/FormLabel";
-import Link from "@mui/joy/Link";
-import Input from "@mui/joy/Input";
-import Typography from "@mui/joy/Typography";
-import Stack from "@mui/joy/Stack";
+import { Box, Typography } from "@mui/joy";
 import { redirect } from "next/navigation";
 
 import AuthImage from "../../../public/auth-image.jpg";
@@ -22,14 +13,11 @@ interface FormElements extends HTMLFormControlsCollection {
   password: HTMLInputElement;
   persistent: HTMLInputElement;
 }
-interface SignInFormElement extends HTMLFormElement {
-  readonly elements: FormElements;
-}
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
-  if (session?.user) redirect("/home");
+  if (session?.user) redirect("/app");
 
   return (
     <>

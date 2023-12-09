@@ -9,19 +9,19 @@ const renderLinks = (pathname: string) => {
   const links = [
     {
       label: "Home",
-      href: "/home",
+      href: "/app",
     },
     {
       label: "Calendar",
-      href: "/calendar",
+      href: "/app/calendar",
     },
     {
       label: "Recipes",
-      href: "/recipes",
+      href: "/app/recipes",
     },
     {
       label: "List",
-      href: "/list",
+      href: "/app/list",
     },
   ];
 
@@ -47,8 +47,6 @@ const renderLinks = (pathname: string) => {
 
 export function Navigation() {
   const pathname = usePathname();
-
-  // aria-pressed={pathname === "/joy-ui/getting-started/templates/email/"}
 
   return (
     <Stack

@@ -1,18 +1,15 @@
 import { auth } from "@/auth";
-import { Header } from "@/components/Header";
 import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-export default async function HomePage() {
+export default async function AppPage() {
   const session = await auth();
 
   const user = session?.user;
 
+  console.log("rendered on the server or client");
+
   if (!user) redirect("/");
 
-  return (
-    <SessionProvider>
-      <Header />
-    </SessionProvider>
-  );
+  return <p>app</p>;
 }
