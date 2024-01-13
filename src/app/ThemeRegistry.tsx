@@ -8,11 +8,11 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import { extendTheme } from "@mui/joy/styles";
 
 const theme = extendTheme({
-  colorSchemes: {
-    dark: {
-      palette: { background: { body: "#121212" } },
-    },
-  },
+  // colorSchemes: {
+  //   dark: {
+  //     palette: { background: { body: "#121212" } },
+  //   },
+  // },
 });
 
 // This implementation is from emotion-js

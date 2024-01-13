@@ -34,14 +34,7 @@ export async function Header() {
     <>
       <Navigation />
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 1.5,
-        }}
-      >
+      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 1.5 }}>
         <Dropdown>
           <MenuButton
             variant="plain"
@@ -64,12 +57,7 @@ export async function Header() {
             }}
           >
             <MenuItem>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Avatar src={user?.image || "/chef-avatar.png"} sx={{ borderRadius: "50%" }} />
                 <Box sx={{ ml: 1.5 }}>
                   <Typography level="title-sm" textColor="text.primary">

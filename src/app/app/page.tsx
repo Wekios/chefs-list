@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
-import { SessionProvider } from "next-auth/react";
+import { Calendar } from "@/components/Calendar/Calendar";
+
 import { redirect } from "next/navigation";
 
 export default async function AppPage() {
@@ -7,9 +8,7 @@ export default async function AppPage() {
 
   const user = session?.user;
 
-  console.log("rendered on the server or client");
-
   if (!user) redirect("/");
 
-  return <p>app</p>;
+  return <Calendar />;
 }

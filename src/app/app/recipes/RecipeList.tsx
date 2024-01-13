@@ -89,13 +89,7 @@ export function RecipeList() {
                 <Avatar alt="" srcSet={item.avatar2x} src={item.avatar} />
               </ListItemDecorator>
               <Box sx={{ pl: 2, width: "100%" }}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    mb: 0.5,
-                  }}
-                >
+                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
                   <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                     <Typography level="body-xs">{item.name}</Typography>
                     <Box

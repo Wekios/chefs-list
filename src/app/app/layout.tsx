@@ -1,6 +1,5 @@
 import { Header } from "@/components/Header";
 import Layout from "@/components/Layout";
-import { Navigation } from "@mui/icons-material";
 import { Stack, Button } from "@mui/joy";
 
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
@@ -81,9 +80,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Header />
           </div>
         </Layout.Header>
-        <Layout.SideNav>
-          <Navigation />
-        </Layout.SideNav>
+        <Layout.SideNav>side nav</Layout.SideNav>
         {children}
       </Layout.Root>
     </>

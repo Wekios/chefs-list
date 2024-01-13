@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/joy/Box";
 import Chip from "@mui/joy/Chip";
 import Card from "@mui/joy/Card";
@@ -21,7 +21,7 @@ import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 export default function RecipeIdPage({ params }: { params: { id: string } }) {
-  const [open, setOpen] = React.useState([false, false, false]);
+  const [open, setOpen] = useState([false, false, false]);
 
   const handleSnackbarOpen = (index: number) => {
     const updatedOpen = [...open];
@@ -36,15 +36,7 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
   };
 
   return (
-    <Sheet
-      variant="outlined"
-      sx={{
-        minHeight: 500,
-        borderRadius: "sm",
-        p: 2,
-        mb: 3,
-      }}
-    >
+    <Sheet variant="outlined" sx={{ minHeight: 500, borderRadius: "sm", p: 2, mb: 3 }}>
       <Box
         sx={{
           display: "flex",

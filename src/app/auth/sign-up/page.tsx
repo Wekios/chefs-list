@@ -69,7 +69,7 @@ export default function SignUpPage() {
         <Typography level="body-sm">
           Have an account?{" "}
           <Link component={NextLink} href="/auth/sign-in" level="title-sm">
-            Sign up!
+            Sign in!
           </Link>
         </Typography>
       </Stack>

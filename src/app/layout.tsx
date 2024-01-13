@@ -13,7 +13,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-joy-color-scheme="dark">
       <body className={inter.className}>
-        <ThemeRegistry options={{ key: "joy" }}>{children}</ThemeRegistry>
+        <ThemeRegistry options={{ key: "joy" }}>
+          <main>{children}</main>
+        </ThemeRegistry>
       </body>
     </html>
   );
