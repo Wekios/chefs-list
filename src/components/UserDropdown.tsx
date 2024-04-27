@@ -1,21 +1,15 @@
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
-import Avatar from "@mui/joy/Avatar";
-import Dropdown from "@mui/joy/Dropdown";
-import Menu from "@mui/joy/Menu";
-import MenuButton from "@mui/joy/MenuButton";
-import MenuItem from "@mui/joy/MenuItem";
-import ListDivider from "@mui/joy/ListDivider";
 
+import { Avatar, Dropdown, ListDivider, Menu, MenuButton, MenuItem } from "@mui/joy";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { auth } from "@/auth";
+import { UserAvatar } from "./UserAvatar";
 
 export async function UserDropdown() {
   const session = await auth();
-
-  const user = session?.user;
 
   return (
     <Dropdown>
@@ -24,10 +18,7 @@ export async function UserDropdown() {
         size="sm"
         sx={{ maxWidth: "32px", maxHeight: "32px", borderRadius: "999px" }}
       >
-        <Avatar
-          src={user?.image || "/chef-avatar.png"}
-          sx={{ maxWidth: "32px", maxHeight: "32px", backgroundColor: "white" }}
-        />
+        <UserAvatar user={session?.user} />
       </MenuButton>
       <Menu
         placement="bottom-end"
@@ -46,13 +37,13 @@ export async function UserDropdown() {
               alignItems: "center",
             }}
           >
-            <Avatar src={user?.image || "/chef-avatar.png"} sx={{ borderRadius: "50%" }} />
+            <Avatar src={session?.user?.image || "/chef-avatar.png"} sx={{ borderRadius: "50%" }} />
             <Box sx={{ ml: 1.5 }}>
               <Typography level="title-sm" textColor="text.primary">
-                {user?.name}
+                {session?.user?.name}
               </Typography>
               <Typography level="body-xs" textColor="text.tertiary">
-                {user?.email}
+                {session?.user?.email}
               </Typography>
             </Box>
           </Box>

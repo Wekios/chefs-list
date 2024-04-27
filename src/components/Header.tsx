@@ -16,6 +16,7 @@ import { Navigation } from "./Navigation";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { UserAvatar } from "./UserAvatar";
 
 export async function Header() {
   const session = await auth();
@@ -41,10 +42,7 @@ export async function Header() {
             size="sm"
             sx={{ maxWidth: "32px", maxHeight: "32px", borderRadius: "999px" }}
           >
-            <Avatar
-              src={user?.image || "/chef-avatar.png"}
-              sx={{ maxWidth: "32px", maxHeight: "32px", backgroundColor: "white" }}
-            />
+            <UserAvatar user={session?.user} />
           </MenuButton>
           <Menu
             placement="bottom-end"
