@@ -4,6 +4,7 @@ import { RecipeList } from "./RecipeList";
 import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 
 import { FocusTrap } from "@mui/base/FocusTrap";
+import AddRecipe from "./AddRecipe";
 
 export function RecipeManagement() {
   return (
@@ -24,14 +25,7 @@ export function RecipeManagement() {
             5 emails
           </Typography>
         </Box>
-        <Button
-          size="sm"
-          startDecorator={<CreateRoundedIcon />}
-          // onClick={() => setOpen(true)}
-          sx={{ ml: "auto" }}
-        >
-          Compose email
-        </Button>
+        <AddRecipe />
         {/* <FocusTrap open={false} disableAutoFocus disableEnforceFocus> */}
         {/* <div>write email</div> */}
         {/* <WriteEmail open={open} onClose={() => setOpen(false)} /> */}
