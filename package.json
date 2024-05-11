@@ -4,32 +4,45 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "^5.15.15",
-    "@mui/joy": "^5.0.0-beta.36",
+    "@auth/prisma-adapter": "^2.0.0",
     "@prisma/client": "^5.13.0",
+    "@t3-oss/env-nextjs": "^0.10.1",
+    "@tanstack/react-query": "^5.32.0",
+    "@trpc/client": "^11.0.0-rc.354",
+    "@trpc/react-query": "^11.0.0-rc.354",
+    "@trpc/server": "^11.0.0-rc.354",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "server-only": "^0.0.1",
+    "superjson": "^2.2.1",
+    "zod": "^3.23.4",
+    "react-hook-form": "^7.51.3",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/joy": "^5.0.0-beta.36"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.12.7",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "prettier": "^3.2.1",
-    "prisma": "^5.8.0",
-    "typescript": "^5"
+    "prisma": "^5.13.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   },
   "volta": {
-    "node": "20.9.0"
+    "node": "20.12.2"
   }
 }

@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 
 import AuthImage from "../../../public/auth-image.jpg";
 
-import { Logo } from "@/components/Logo";
+import { Logo } from "~/components/Logo";
 
-import { auth } from "@/auth";
+import { auth } from "~/server/auth";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -17,7 +17,7 @@ interface FormElements extends HTMLFormControlsCollection {
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
-  if (session?.user) redirect("/app");
+  if (session?.user) redirect("/home");
 
   return (
     <>

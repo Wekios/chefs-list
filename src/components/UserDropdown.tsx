@@ -5,8 +5,9 @@ import { Avatar, Dropdown, ListDivider, Menu, MenuButton, MenuItem } from "@mui/
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { auth } from "@/auth";
+import { auth } from "~/server/auth";
 import { UserAvatar } from "./UserAvatar";
+import { SignOut } from "~/app/auth/components/Actions";
 
 export async function UserDropdown() {
   const session = await auth();
@@ -58,10 +59,7 @@ export async function UserDropdown() {
           Settings
         </MenuItem>
         <ListDivider />
-        <MenuItem>
-          <LogoutRoundedIcon />
-          Log out
-        </MenuItem>
+        <SignOut startDecorator={<LogoutRoundedIcon />} fullWidth />
       </Menu>
     </Dropdown>
   );

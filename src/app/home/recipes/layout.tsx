@@ -1,4 +1,4 @@
-import Layout from "@/components/Layout";
+import Layout from "~/components/Layout";
 import { RecipeManagement } from "./RecipeManagement";
 
 export default function RecipesLayout({ children }: { children: React.ReactNode }) {

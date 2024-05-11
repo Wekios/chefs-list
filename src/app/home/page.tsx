@@ -1,5 +1,5 @@
-import { auth } from "@/auth";
-import { Calendar } from "@/components/Calendar/Calendar";
+import { auth } from "~/server/auth";
+import { Calendar } from "~/components/Calendar/Calendar";
 
 import { redirect } from "next/navigation";
 

@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // connection string with pgBouncer/pooling enabled
+  directUrl = env("DIRECT_URL") // plain connection with no pgBouncer (used for push & migrations)
+}
+
+model Recipe {
+  id             Int              @id @default(autoincrement())
+  name           String
+  description    String
+  mealType       MealType[]
+  mealIngredient MealIngredient[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById String
+
+  @@index([name])
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+model Ingredient {
+  id             Int                 @id @default(autoincrement())
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  name           String              @unique
+  category       IngredientCategory?
+  mealIngredient MealIngredient[]
+}
+
+model MealIngredient {
+  id           Int            @id @default(autoincrement())
+  recipe       Recipe         @relation(fields: [recipeId], references: [id])
+  recipeId     Int
+  ingredient   Ingredient     @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  quantity     Int
+  unit         IngredientUnit
+}
+
+enum IngredientUnit {
+  PIECE
+  KILOGRAM
+  GRAM
+  LITER
+  MILLILITER
+  TEASPOON
+  TABLESPOON
+  CUP
+  PINCH
+}
+
+enum IngredientCategory {
+  OIL
+  MEAT
+  FRUIT
+  DAIRY
+  SPICE
+  VEGETABLE
+}
+
+// Necessary for Next auth
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Recipe    Recipe[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  id                   String  @id @default(cuid())
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ThemeRegistry from "./ThemeRegistry";
+import { TRPCReactProvider } from "~/trpc/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-joy-color-scheme="dark">
       <body className={inter.className}>
         <ThemeRegistry options={{ key: "joy" }}>
-          <main>{children}</main>
+          <TRPCReactProvider>
+            <main>{children}</main>
+          </TRPCReactProvider>
         </ThemeRegistry>
       </body>
     </html>

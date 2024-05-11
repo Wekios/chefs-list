@@ -1,5 +1,5 @@
-import { Header } from "@/components/Header";
-import Layout from "@/components/Layout";
+import { Header } from "~/components/Header";
+import Layout from "~/components/Layout";
 import { Stack, Button } from "@mui/joy";
 
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";

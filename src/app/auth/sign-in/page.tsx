@@ -1,4 +1,3 @@
-import Box from "@mui/joy/Box";
 import Divider from "@mui/joy/Divider";
 import Link from "@mui/joy/Link";
 import Typography from "@mui/joy/Typography";

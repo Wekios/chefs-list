@@ -1,7 +1,7 @@
 import { Button } from "@mui/joy";
 import GoogleIcon from "./GoogleIcon";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { signIn, signOut } from "@/auth";
+import { signIn, signOut } from "~/server/auth";
 
 type Provider = "google" | "github";
 

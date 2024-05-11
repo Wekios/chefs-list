@@ -1,5 +1,5 @@
 import { Avatar } from "@mui/joy";
-import type { User } from "next-auth/types";
+import type { User } from "next-auth";
 
 export function UserAvatar({ user }: { user?: User }) {
   return (

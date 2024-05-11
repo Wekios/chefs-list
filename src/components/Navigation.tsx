@@ -9,19 +9,19 @@ const renderLinks = (pathname: string) => {
   const links = [
     {
       label: "Home",
-      href: "/app",
+      href: "/home",
     },
     {
       label: "Calendar",
-      href: "/app/calendar",
+      href: "/home/calendar",
     },
     {
       label: "Recipes",
-      href: "/app/recipes",
+      href: "/home/recipes",
     },
     {
       label: "List",
-      href: "/app/list",
+      href: "/home/list",
     },
   ];
 
@@ -31,13 +31,13 @@ const renderLinks = (pathname: string) => {
     return (
       <Button
         key={label}
+        size="sm"
+        href={href}
         variant="plain"
         color="neutral"
         component={NextLink}
-        href={href}
-        size="sm"
-        sx={{ alignSelf: "center" }}
         aria-pressed={isActive}
+        sx={{ alignSelf: "center" }}
       >
         {label}
       </Button>
@@ -50,10 +50,10 @@ export function Navigation() {
 
   return (
     <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
       spacing={1}
+      direction="row"
+      alignItems="center"
+      justifyContent="center"
       sx={{ display: { xs: "none", sm: "flex" } }}
     >
       <IconButton
