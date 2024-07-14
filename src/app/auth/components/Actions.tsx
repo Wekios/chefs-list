@@ -1,13 +1,15 @@
-import { Button } from "@mui/joy";
-import GoogleIcon from "./GoogleIcon";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { Button } from "@mui/joy";
+
 import { signIn, signOut } from "~/server/auth";
 
-type Provider = "google" | "github";
+import GoogleIcon from "./GoogleIcon";
+
+type Provider = "github" | "google";
 
 const iconMap = {
-  google: <GoogleIcon />,
   github: <GitHubIcon />,
+  google: <GoogleIcon />,
 } as const;
 
 export function SocialSignIn({
@@ -22,11 +24,11 @@ export function SocialSignIn({
       }}
     >
       <Button
-        variant="soft"
         color="neutral"
         fullWidth
         startDecorator={iconMap[provider]}
         type="submit"
+        variant="soft"
         {...props}
       >
         Continue with {provider}
@@ -40,10 +42,10 @@ export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
     <form
       action={async () => {
         "use server";
-        await signOut();
+        await signOut({ redirectTo: "/" });
       }}
     >
-      <Button variant="plain" type="submit" {...props}>
+      <Button type="submit" variant="plain" {...props}>
         Sign out
       </Button>
     </form>

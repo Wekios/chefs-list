@@ -1,7 +1,8 @@
 import Layout from "~/components/Layout";
+
 import { RecipeManagement } from "./RecipeManagement";
 
-export default function RecipesLayout({ children }: { children: React.ReactNode }) {
+export default async function RecipePage({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Layout.SidePane>

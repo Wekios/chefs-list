@@ -1,43 +1,42 @@
 "use client";
-import { Stack, IconButton, Button } from "@mui/joy";
-import NextLink from "next/link";
-
 import LanguageRoundedIcon from "@mui/icons-material/LanguageRounded";
+import { Button, IconButton, Stack } from "@mui/joy";
+import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 
 const renderLinks = (pathname: string) => {
   const links = [
     {
-      label: "Home",
       href: "/home",
+      label: "Home",
     },
     {
-      label: "Calendar",
       href: "/home/calendar",
+      label: "Calendar",
     },
     {
-      label: "Recipes",
       href: "/home/recipes",
+      label: "Recipes",
     },
     {
-      label: "List",
       href: "/home/list",
+      label: "List",
     },
   ];
 
-  return links.map(({ label, href }) => {
+  return links.map(({ href, label }) => {
     const isActive = pathname === href;
 
     return (
       <Button
-        key={label}
-        size="sm"
-        href={href}
-        variant="plain"
+        aria-pressed={isActive}
         color="neutral"
         component={NextLink}
-        aria-pressed={isActive}
+        href={href}
+        key={label}
+        size="sm"
         sx={{ alignSelf: "center" }}
+        variant="plain"
       >
         {label}
       </Button>
@@ -50,17 +49,17 @@ export function Navigation() {
 
   return (
     <Stack
-      spacing={1}
-      direction="row"
       alignItems="center"
+      direction="row"
       justifyContent="center"
-      sx={{ display: { xs: "none", sm: "flex" } }}
+      spacing={1}
+      sx={{ display: { sm: "flex", xs: "none" } }}
     >
       <IconButton
-        size="md"
-        variant="outlined"
         color="neutral"
-        sx={{ display: { xs: "none", sm: "inline-flex" }, borderRadius: "50%" }}
+        size="md"
+        sx={{ borderRadius: "50%", display: { sm: "inline-flex", xs: "none" } }}
+        variant="outlined"
       >
         <LanguageRoundedIcon />
       </IconButton>

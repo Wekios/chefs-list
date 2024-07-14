@@ -1,11 +1,11 @@
 "use client";
-import { type ReactNode, useState } from "react";
 import createCache, { type Options } from "@emotion/cache";
-import { useServerInsertedHTML } from "next/navigation";
 import { CacheProvider } from "@emotion/react";
-import { CssVarsProvider, getInitColorSchemeScript } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
+import { CssVarsProvider, getInitColorSchemeScript } from "@mui/joy/styles";
 import { extendTheme } from "@mui/joy/styles";
+import { useServerInsertedHTML } from "next/navigation";
+import { type ReactNode, useState } from "react";
 
 const theme = extendTheme({
   // colorSchemes: {
@@ -18,11 +18,11 @@ const theme = extendTheme({
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
 export default function ThemeRegistry({
-  options,
   children,
+  options,
 }: {
-  options: Options;
   children: ReactNode;
+  options: Options;
 }) {
   const [{ cache, flush }] = useState(() => {
     const cache = createCache(options);
@@ -55,11 +55,11 @@ export default function ThemeRegistry({
     }
     return (
       <style
-        key={cache.key}
-        data-emotion={`${cache.key} ${names.join(" ")}`}
         dangerouslySetInnerHTML={{
           __html: styles,
         }}
+        data-emotion={`${cache.key} ${names.join(" ")}`}
+        key={cache.key}
       />
     );
   });

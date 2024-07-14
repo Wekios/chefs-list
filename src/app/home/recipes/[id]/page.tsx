@@ -1,55 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import FolderIcon from "@mui/icons-material/Folder";
+import ForwardToInboxRoundedIcon from "@mui/icons-material/ForwardToInboxRounded";
+import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
-import Chip from "@mui/joy/Chip";
+import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardOverflow from "@mui/joy/CardOverflow";
-import Sheet from "@mui/joy/Sheet";
-import Typography from "@mui/joy/Typography";
-import Button from "@mui/joy/Button";
-import Snackbar from "@mui/joy/Snackbar";
-import AspectRatio from "@mui/joy/AspectRatio";
+import Chip from "@mui/joy/Chip";
 import Divider from "@mui/joy/Divider";
-import Avatar from "@mui/joy/Avatar";
+import Sheet from "@mui/joy/Sheet";
+import Snackbar from "@mui/joy/Snackbar";
 import Tooltip from "@mui/joy/Tooltip";
-
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
-import ForwardToInboxRoundedIcon from "@mui/icons-material/ForwardToInboxRounded";
-import FolderIcon from "@mui/icons-material/Folder";
-import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import Typography from "@mui/joy/Typography";
+import { useState } from "react";
 
 export default function RecipeIdPage({ params }: { params: { id: string } }) {
-  const [open, setOpen] = useState([false, false, false]);
+  const [open, setOpen] = useState({ 0: false, 1: false, 2: false });
 
   const handleSnackbarOpen = (index: number) => {
-    const updatedOpen = [...open];
-    updatedOpen[index] = true;
-    setOpen(updatedOpen);
+    setOpen((prev) => ({ ...prev, [index]: true }));
   };
 
   const handleSnackbarClose = (index: number) => {
-    const updatedOpen = [...open];
-    updatedOpen[index] = false;
-    setOpen(updatedOpen);
+    setOpen((prev) => ({ ...prev, [index]: false }));
   };
 
   return (
-    <Sheet variant="outlined" sx={{ minHeight: 500, borderRadius: "sm", p: 2, mb: 3 }}>
+    <Sheet sx={{ borderRadius: "sm", mb: 3, minHeight: 500, p: 2 }} variant="outlined">
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
+          display: "flex",
           flexWrap: "wrap",
           gap: 2,
+          justifyContent: "space-between",
         }}
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Avatar src="https://i.pravatar.cc/40?img=3" srcSet="https://i.pravatar.cc/80?img=3" />
           <Box sx={{ ml: 2 }}>
-            <Typography level="title-sm" textColor="text.primary" mb={0.5}>
+            <Typography level="title-sm" mb={0.5} textColor="text.primary">
               Alex Jonnold
             </Typography>
             <Typography level="body-xs" textColor="text.tertiary">
@@ -57,131 +52,131 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ display: "flex", height: "32px", flexDirection: "row", gap: 1.5 }}>
+        <Box sx={{ display: "flex", flexDirection: "row", gap: 1.5, height: "32px" }}>
           <Button
-            size="sm"
-            variant="plain"
             color="neutral"
-            startDecorator={<ReplyRoundedIcon />}
             onClick={() => handleSnackbarOpen(0)}
+            size="sm"
+            startDecorator={<ReplyRoundedIcon />}
+            variant="plain"
           >
             Reply
           </Button>
           <Snackbar
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             color="success"
-            open={open[0]}
-            onClose={() => handleSnackbarClose(0)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            startDecorator={<CheckCircleRoundedIcon />}
             endDecorator={
               <Button
+                color="neutral"
                 onClick={() => handleSnackbarClose(0)}
                 size="sm"
                 variant="soft"
-                color="neutral"
               >
                 Dismiss
               </Button>
             }
+            onClose={() => handleSnackbarClose(0)}
+            open={open[0]}
+            startDecorator={<CheckCircleRoundedIcon />}
           >
             Your message has been sent.
           </Snackbar>
           <Button
-            size="sm"
-            variant="plain"
             color="neutral"
-            startDecorator={<ForwardToInboxRoundedIcon />}
             onClick={() => handleSnackbarOpen(1)}
+            size="sm"
+            startDecorator={<ForwardToInboxRoundedIcon />}
+            variant="plain"
           >
             Forward
           </Button>
           <Snackbar
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             color="success"
-            open={open[1]}
-            onClose={() => handleSnackbarClose(1)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            startDecorator={<CheckCircleRoundedIcon />}
             endDecorator={
               <Button
+                color="neutral"
                 onClick={() => handleSnackbarClose(1)}
                 size="sm"
                 variant="soft"
-                color="neutral"
               >
                 Dismiss
               </Button>
             }
+            onClose={() => handleSnackbarClose(1)}
+            open={open[1]}
+            startDecorator={<CheckCircleRoundedIcon />}
           >
             Your message has been forwarded.
           </Snackbar>
           <Button
-            size="sm"
-            variant="plain"
             color="danger"
-            startDecorator={<DeleteRoundedIcon />}
             onClick={() => handleSnackbarOpen(2)}
+            size="sm"
+            startDecorator={<DeleteRoundedIcon />}
+            variant="plain"
           >
             Delete
           </Button>
           <Snackbar
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             color="danger"
-            open={open[2]}
-            onClose={() => handleSnackbarClose(2)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            startDecorator={<CheckCircleRoundedIcon />}
             endDecorator={
               <Button
+                color="neutral"
                 onClick={() => handleSnackbarClose(2)}
                 size="sm"
                 variant="soft"
-                color="neutral"
               >
                 Dismiss
               </Button>
             }
+            onClose={() => handleSnackbarClose(2)}
+            open={open[2]}
+            startDecorator={<CheckCircleRoundedIcon />}
           >
             Your message has been deleted.
           </Snackbar>
         </Box>
       </Box>
       <Divider sx={{ mt: 2 }} />
-      <Box sx={{ py: 2, display: "flex", flexDirection: "column", alignItems: "start" }}>
+      <Box sx={{ alignItems: "start", display: "flex", flexDirection: "column", py: 2 }}>
         <Typography
-          level="title-lg"
-          textColor="text.primary"
           endDecorator={
-            <Chip component="span" size="sm" variant="outlined" color="warning">
+            <Chip color="warning" component="span" size="sm" variant="outlined">
               Personal
             </Chip>
           }
+          level="title-lg"
+          textColor="text.primary"
         >
           Details for our Yosemite Park hike
         </Typography>
         <Box
           sx={{
-            mt: 1,
-            display: "flex",
             alignItems: "center",
-            gap: 1,
+            display: "flex",
             flexWrap: "wrap",
+            gap: 1,
+            mt: 1,
           }}
         >
           <div>
-            <Typography component="span" level="body-sm" sx={{ mr: 1, display: "inline-block" }}>
+            <Typography component="span" level="body-sm" sx={{ display: "inline-block", mr: 1 }}>
               From
             </Typography>
             <Tooltip size="sm" title="Copy email" variant="outlined">
-              <Chip size="sm" variant="soft" color="primary" onClick={() => {}}>
+              <Chip color="primary" onClick={() => {}} size="sm" variant="soft">
                 alex.jonnold@hike.com
               </Chip>
             </Tooltip>
           </div>
           <div>
-            <Typography component="span" level="body-sm" sx={{ mr: 1, display: "inline-block" }}>
+            <Typography component="span" level="body-sm" sx={{ display: "inline-block", mr: 1 }}>
               to
             </Typography>
             <Tooltip size="sm" title="Copy email" variant="outlined">
-              <Chip size="sm" variant="soft" color="primary" onClick={() => {}}>
+              <Chip color="primary" onClick={() => {}} size="sm" variant="soft">
                 steve@mail.com
               </Chip>
             </Tooltip>
@@ -189,7 +184,7 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
         </Box>
       </Box>
       <Divider />
-      <Typography level="body-sm" mt={2} mb={2}>
+      <Typography level="body-sm" mb={2} mt={2}>
         Hello, my friend!
         <br />
         <br />
@@ -212,40 +207,40 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
         See you soon, Alex Jonnold
       </Typography>
       <Divider />
-      <Typography level="title-sm" mt={2} mb={2}>
+      <Typography level="title-sm" mb={2} mt={2}>
         Attachments
       </Typography>
       <Box
         sx={(theme) => ({
+          "& > div": {
+            "--Card-padding": "0px",
+            "--Card-radius": theme.vars.radius.sm,
+            boxShadow: "none",
+          },
           display: "flex",
           flexWrap: "wrap",
           gap: 2,
-          "& > div": {
-            boxShadow: "none",
-            "--Card-padding": "0px",
-            "--Card-radius": theme.vars.radius.sm,
-          },
         })}
       >
         <Card variant="outlined">
           <AspectRatio ratio="1" sx={{ minWidth: 80 }}>
             <img
+              alt="Yosemite National Park"
               src="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&h=80"
               srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&h=160 2x"
-              alt="Yosemite National Park"
             />
           </AspectRatio>
         </Card>
         <Card variant="outlined">
           <AspectRatio ratio="1" sx={{ minWidth: 80 }}>
             <img
+              alt="Yosemite National Park"
               src="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&h=80"
               srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&h=160 2x"
-              alt="Yosemite National Park"
             />
           </AspectRatio>
         </Card>
-        <Card variant="outlined" orientation="horizontal">
+        <Card orientation="horizontal" variant="outlined">
           <CardOverflow>
             <AspectRatio ratio="1" sx={{ minWidth: 80 }}>
               <div>
@@ -253,8 +248,8 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
               </div>
             </AspectRatio>
           </CardOverflow>
-          <Box sx={{ py: { xs: 1, sm: 2 }, pr: 2 }}>
-            <Typography level="title-sm" color="primary">
+          <Box sx={{ pr: 2, py: { sm: 2, xs: 1 } }}>
+            <Typography color="primary" level="title-sm">
               videos-hike.zip
             </Typography>
             <Typography level="body-xs">100 MB</Typography>

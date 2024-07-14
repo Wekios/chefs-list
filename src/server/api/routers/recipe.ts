@@ -1,51 +1,34 @@
-import { MealType, IngredientUnit } from "@prisma/client";
-import { z } from "zod";
-
+import { addRecipeSchema } from "~/app/validation";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 
 export const recipeRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        name: z.string().min(1),
-        description: z.string(),
-        mealType: z.array(z.nativeEnum(MealType)),
-        ingredients: z.array(
-          z.object({
-            name: z.string().min(1),
-            quantity: z.number(),
-            unit: z.nativeEnum(IngredientUnit),
-          }),
-        ),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      // list all ingredients
-
-      try {
-        await ctx.db.recipe.create({
-          data: {
-            name: input.name,
-            description: input.description,
-            mealType: input.mealType,
-            createdBy: { connect: { id: input.userId } },
-            mealIngredient: {
-              create: input.ingredients.map((ingredient) => ({
-                quantity: ingredient.quantity,
-                unit: ingredient.unit,
-                ingredient: {
-                  connect: { name: ingredient.name },
-                },
-              })),
+  create: protectedProcedure.input(addRecipeSchema).mutation(async ({ ctx, input }) => {
+    return ctx.db.recipe.create({
+      data: {
+        createdBy: { connect: { id: ctx.session.user.id } },
+        description: input.description,
+        mealIngredient: {
+          create: input.ingredients.map((ingredient) => ({
+            ingredient: {
+              connect: { name: ingredient.name },
             },
-          },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-      return true;
-    }),
+            quantity: ingredient.quantity,
+            unit: ingredient.unit,
+          })),
+        },
+        mealType: input.mealType,
+        name: input.name,
+      },
+    });
+  }),
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.recipe.findMany({
+      orderBy: { updatedAt: "desc" },
+    });
+  }),
+  getCount: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.recipe.count();
+  }),
   // hello: publicProcedure
   //   .input(z.object({ text: z.string() }))
   //   .query(({ input }) => {

@@ -1,85 +1,196 @@
 "use client";
 
-import React from "react";
-
 import {
+  Avatar,
+  Box,
+  CircularProgress,
   List,
+  ListDivider,
   ListItem,
   ListItemButton,
   ListItemDecorator,
-  Avatar,
-  Box,
+  Skeleton,
   Typography,
-  ListDivider,
 } from "@mui/joy";
-import { usePathname } from "next/navigation";
+import Image from "next/image";
 import NextLink from "next/link";
+import { useParams, usePathname } from "next/navigation";
+import React, { Fragment } from "react";
 
-const data = [
-  {
-    id: "1",
-    name: "Alex Jonnold",
-    avatar: "https://i.pravatar.cc/40?img=3",
-    avatar2x: "https://i.pravatar.cc/80?img=3",
-    date: "21 Oct 2022",
-    title: "Details for our Yosemite Park hike",
-    body: "Hello, my friend! So, it seems that we are getting there…",
-    color: "warning.400",
-  },
-  {
-    id: "2",
-    name: "Pete Sand",
-    avatar: "https://i.pravatar.cc/40?img=4",
-    avatar2x: "https://i.pravatar.cc/80?img=4",
-    date: "06 Jul 2022",
-    title: "Tickets for our upcoming trip",
-    body: "Good day, mate! It seems that our tickets just arrived…",
-    color: "success.400",
-  },
-  {
-    id: "3",
-    name: "Kate Gates",
-    avatar: "https://i.pravatar.cc/40?img=5",
-    avatar2x: "https://i.pravatar.cc/80?img=5",
-    date: "16 May 2022",
-    title: "Brunch this Saturday?",
-    body: "Hey! I'll be around the city this weekend, how about a…",
-    color: "primary.500",
-  },
-  {
-    id: "4",
-    name: "John Snow",
-    avatar: "https://i.pravatar.cc/40?img=7",
-    avatar2x: "https://i.pravatar.cc/80?img=7",
-    date: "10 May 2022",
-    title: "Exciting News!",
-    body: "Hello there! I have some exciting news to share with you...",
-    color: "danger.500",
-  },
-  {
-    id: "5",
-    name: "Michael Scott",
-    avatar: "https://i.pravatar.cc/40?img=8",
-    avatar2x: "https://i.pravatar.cc/80?img=8",
-    date: "13 Apr 2022",
-    title: "Upcoming Product Launch",
-    body: "Dear customers and supporters, I am thrilled to announc...",
-    color: "danger.500",
-  },
-];
+import { api } from "~/trpc/react";
 
-export function RecipeList() {
-  const pathname = usePathname().split("/").slice(-1);
+// const data = [
+//   {
+//     id: "1",
+//     name: "Alex Jonnold",
+//     avatar: "https://i.pravatar.cc/40?img=3",
+//     avatar2x: "https://i.pravatar.cc/80?img=3",
+//     date: "21 Oct 2022",
+//     title: "Details for our Yosemite Park hike",
+//     body: "Hello, my friend! So, it seems that we are getting there…",
+//     color: "warning.400",
+//   },
+//   {
+//     id: "2",
+//     name: "Pete Sand",
+//     avatar: "https://i.pravatar.cc/40?img=4",
+//     avatar2x: "https://i.pravatar.cc/80?img=4",
+//     date: "06 Jul 2022",
+//     title: "Tickets for our upcoming trip",
+//     body: "Good day, mate! It seems that our tickets just arrived…",
+//     color: "success.400",
+//   },
+//   {
+//     id: "3",
+//     name: "Kate Gates",
+//     avatar: "https://i.pravatar.cc/40?img=5",
+//     avatar2x: "https://i.pravatar.cc/80?img=5",
+//     date: "16 May 2022",
+//     title: "Brunch this Saturday?",
+//     body: "Hey! I'll be around the city this weekend, how about a…",
+//     color: "primary.500",
+//   },
+//   {
+//     id: "4",
+//     name: "John Snow",
+//     avatar: "https://i.pravatar.cc/40?img=7",
+//     avatar2x: "https://i.pravatar.cc/80?img=7",
+//     date: "10 May 2022",
+//     title: "Exciting News!",
+//     body: "Hello there! I have some exciting news to share with you...",
+//     color: "danger.500",
+//   },
+//   {
+//     id: "5",
+//     name: "Michael Scott",
+//     avatar: "https://i.pravatar.cc/40?img=8",
+//     avatar2x: "https://i.pravatar.cc/80?img=8",
+//     date: "13 Apr 2022",
+//     title: "Upcoming Product Launch",
+//     body: "Dear customers and supporters, I am thrilled to announc...",
+//     color: "danger.500",
+//   },
+// ];
+
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+export function RecipeList({ count }: { count: number }) {
+  const selectedRecipeId = Number(useParams<{ id?: string }>().id);
+
+  const { data: recipes, isFetching, status } = api.recipe.getAll.useQuery();
+
+  if (status === "pending") {
+    return Array(count)
+      .fill(0)
+      .map((_, idx) => (
+        <Fragment key={idx}>
+          <Box sx={{ display: "flex", gap: 2, m: "auto", padding: 2 }}>
+            <Skeleton height={40} variant="circular" width={40} />
+            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: "1", gap: 2 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Skeleton height="0.75em" variant="rectangular" width={100} />
+                <Skeleton height="0.75em" variant="rectangular" width={80} />
+              </Box>
+              <Skeleton height="0.9em" variant="rectangular" width={170} />
+              <Skeleton height="0.75em" variant="rectangular" width={140} />
+            </Box>
+          </Box>
+          <ListDivider sx={{ m: 0 }} />
+        </Fragment>
+      ));
+  } else if (status === "error") {
+    return <div>aaaa</div>;
+  }
 
   return (
-    <List>
-      {data.map((item, index) => (
+    <Box sx={{ position: "relative" }}>
+      {isFetching && (
+        <CircularProgress
+          sx={{
+            left: "50%",
+            position: "absolute",
+            top: "50%",
+            transform: "translate3d(-50%, -50%, 0)",
+          }}
+          variant="soft"
+        />
+      )}
+
+      <List sx={{ opacity: isFetching ? "0.5" : "1" }}>
+        {recipes.map((recipe, idx) => (
+          <React.Fragment key={recipe.id}>
+            <ListItem>
+              <ListItemButton
+                component={NextLink}
+                href={`/home/recipes/${recipe.id}`}
+                {...(selectedRecipeId === recipe.id && {
+                  color: "neutral",
+                  selected: true,
+                })}
+                sx={{ p: 2 }}
+              >
+                <ListItemDecorator sx={{ alignSelf: "flex-start" }}>
+                  {/* <Avatar
+                    alt=""
+                    // srcSet={`https://i.pravatar.cc/80?img=${idx}`}
+                    src={}
+                  /> */}
+                  <Image alt="" height={40} src="/fries.png" width={40} />
+                </ListItemDecorator>
+                <Box sx={{ pl: 2, width: "100%" }}>
+                  <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
+                    <Box sx={{ alignItems: "center", display: "flex", gap: 0.5 }}>
+                      <Typography level="body-xs">{recipe.name}</Typography>
+                      <Box
+                        sx={{
+                          borderRadius: "99px",
+                          height: "8px",
+                          width: "8px",
+                          // bgcolor: recipe.color,
+                        }}
+                      />
+                    </Box>
+                    <Typography level="body-xs" textColor="text.tertiary">
+                      {formatDate(recipe.createdAt)}
+                    </Typography>
+                  </Box>
+                  <div>
+                    <Typography level="title-sm" sx={{ mb: 0.5 }}>
+                      {recipe.name}
+                    </Typography>
+                    <Typography
+                      level="body-sm"
+                      sx={{
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: "1",
+                        display: "-webkit-box",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                    >
+                      {recipe.description}
+                    </Typography>
+                  </div>
+                </Box>
+              </ListItemButton>
+            </ListItem>
+            <ListDivider sx={{ m: 0 }} />
+          </React.Fragment>
+        ))}
+        <ListDivider sx={{ m: 0 }} />
+        {/* {data.map((item, index) => (
         <React.Fragment key={index}>
           <ListItem>
             <ListItemButton
               component={NextLink}
-              href={`/app/recipes/${item.id}`}
-              {...(pathname[0] === item.id && {
+              href={`/home/recipes/${item.id}`}
+              {...(selectedRecipeId === Number(item.id) && {
                 selected: true,
                 color: "neutral",
               })}
@@ -116,7 +227,8 @@ export function RecipeList() {
           </ListItem>
           <ListDivider sx={{ m: 0 }} />
         </React.Fragment>
-      ))}
-    </List>
+      ))} */}
+      </List>
+    </Box>
   );
 }

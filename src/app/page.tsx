@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+
 import LandingScreen from "~/components/LandingScreen";
 import { auth } from "~/server/auth";
 

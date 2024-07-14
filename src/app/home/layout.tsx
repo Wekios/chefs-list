@@ -1,12 +1,18 @@
+import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
+import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
+import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
+import { Button, Stack } from "@mui/joy";
+import { redirect } from "next/navigation";
+
 import { Header } from "~/components/Header";
 import Layout from "~/components/Layout";
-import { Stack, Button } from "@mui/joy";
+import { auth } from "~/server/auth";
 
-import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
-import FolderRoundedIcon from "@mui/icons-material/FolderRounded";
+export default async function AppLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+  if (!session?.user) redirect("/auth/sign-in");
+
   return (
     <>
       {/* {drawerOpen && ( 
@@ -15,53 +21,53 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </Layout.SideDrawer>
       */}
       <Stack
-        id="tab-bar"
         direction="row"
+        id="tab-bar"
         spacing={1}
         sx={{
-          py: 2,
-          justifyContent: "space-around",
-          zIndex: "999",
-          bottom: 0,
-          width: "100dvw",
-          position: "fixed",
-          borderTop: "1px solid",
-          borderColor: "divider",
           backgroundColor: "background.body",
-          display: { xs: "flex", sm: "none" },
+          borderColor: "divider",
+          borderTop: "1px solid",
+          bottom: 0,
+          display: { sm: "none", xs: "flex" },
+          justifyContent: "space-around",
+          position: "fixed",
+          py: 2,
+          width: "100dvw",
+          zIndex: "999",
         }}
       >
         <Button
-          variant="plain"
-          color="neutral"
           aria-pressed="true"
+          color="neutral"
           component="a"
           href="/joy-ui/getting-started/templates/email/"
           size="sm"
           startDecorator={<EmailRoundedIcon />}
-          sx={{ flexDirection: "column", "--Button-gap": 0 }}
+          sx={{ "--Button-gap": 0, flexDirection: "column" }}
+          variant="plain"
         >
           Email
         </Button>
         <Button
-          variant="plain"
           color="neutral"
           component="a"
           href="/joy-ui/getting-started/templates/team/"
           size="sm"
           startDecorator={<PeopleAltRoundedIcon />}
-          sx={{ flexDirection: "column", "--Button-gap": 0 }}
+          sx={{ "--Button-gap": 0, flexDirection: "column" }}
+          variant="plain"
         >
           Team
         </Button>
         <Button
-          variant="plain"
           color="neutral"
           component="a"
           href="/joy-ui/getting-started/templates/files/"
           size="sm"
           startDecorator={<FolderRoundedIcon />}
-          sx={{ flexDirection: "column", "--Button-gap": 0 }}
+          sx={{ "--Button-gap": 0, flexDirection: "column" }}
+          variant="plain"
         >
           Files
         </Button>

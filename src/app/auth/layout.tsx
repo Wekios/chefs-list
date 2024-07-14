@@ -1,12 +1,11 @@
-import GlobalStyles from "@mui/joy/GlobalStyles";
 import { Box, Typography } from "@mui/joy";
+import GlobalStyles from "@mui/joy/GlobalStyles";
 import { redirect } from "next/navigation";
 
-import AuthImage from "../../../public/auth-image.jpg";
-
 import { Logo } from "~/components/Logo";
-
 import { auth } from "~/server/auth";
+
+import AuthImage from "../../../public/auth-image.jpg";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -33,51 +32,51 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
       />
       <Box
         sx={{
-          width:
-            "clamp(100vw - var(--Cover-width), (var(--Collapsed-breakpoint) - 100vw) * 999, 100vw)",
-          transition: "width var(--Transition-duration)",
-          transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
-          position: "relative",
-          zIndex: 1,
+          backdropFilter: "blur(12px)",
           display: "flex",
           justifyContent: "flex-end",
-          backdropFilter: "blur(12px)",
+          position: "relative",
+          transition: "width var(--Transition-duration)",
+          transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
+          width:
+            "clamp(100vw - var(--Cover-width), (var(--Collapsed-breakpoint) - 100vw) * 999, 100vw)",
+          zIndex: 1,
         }}
       >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            minHeight: "100dvh",
-            width: "clamp(var(--Form-maxWidth), (var(--Collapsed-breakpoint) - 100vw) * 999, 100%)",
             maxWidth: "100%",
+            minHeight: "100dvh",
             px: 2,
+            width: "clamp(var(--Form-maxWidth), (var(--Collapsed-breakpoint) - 100vw) * 999, 100%)",
           }}
         >
           <Box
             component="header"
-            sx={{ py: 3, display: "flex", alignItems: "center", justifyContent: "space-between" }}
+            sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", py: 3 }}
           >
             <Logo />
           </Box>
           <Box
             component="main"
             sx={{
-              my: "auto",
-              py: 2,
-              pb: 5,
-              display: "flex",
-              flexDirection: "column",
-              gap: 2,
-              width: 400,
-              maxWidth: "100%",
-              mx: "auto",
-              borderRadius: "sm",
               "& form": {
                 display: "flex",
                 flexDirection: "column",
                 gap: 2,
               },
+              borderRadius: "sm",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              maxWidth: "100%",
+              mx: "auto",
+              my: "auto",
+              pb: 5,
+              py: 2,
+              width: 400,
             }}
           >
             {children}
@@ -91,16 +90,16 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
       </Box>
       <Box
         sx={{
+          background: `url(${AuthImage.src}) center / contain no-repeat`,
+          bottom: 0,
           height: "100%",
+          left: "clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))",
           position: "fixed",
           right: 0,
           top: 0,
-          bottom: 0,
-          left: "clamp(0px, (100vw - var(--Collapsed-breakpoint)) * 999, 100vw - var(--Cover-width))",
           transition:
             "background-image var(--Transition-duration), left var(--Transition-duration) !important",
           transitionDelay: "calc(var(--Transition-duration) + 0.1s)",
-          background: `url(${AuthImage.src}) center / contain no-repeat`,
         }}
       />
     </>

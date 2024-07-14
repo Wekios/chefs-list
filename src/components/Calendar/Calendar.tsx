@@ -15,40 +15,40 @@ import { Fragment } from "react";
 const MealPlaceholder = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.level1 : "#fff",
   ...theme.typography["body-sm"],
-  padding: theme.spacing(1),
-  textAlign: "center",
+  alignItems: "center",
+  border: `2px dashed ${theme.palette.divider}`,
   borderRadius: 4,
   color: theme.vars.palette.text.secondary,
-  border: `2px dashed ${theme.palette.divider}`,
-  alignItems: "center",
-  justifyContent: "center",
   display: "flex",
+  justifyContent: "center",
+  padding: theme.spacing(1),
+  textAlign: "center",
 }));
 
 const dayLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 export function Calendar() {
   return (
-    <Box p={2} gridColumn="2/-1">
+    <Box gridColumn="2/-1" p={2}>
       <Sheet
-        variant="outlined"
         sx={{
-          p: 1,
-          gap: 2,
-          display: "grid",
-          gridTemplateRows: "50px repeat(7, minmax(100px, 1fr))",
           borderRadius: "sm",
+          display: "grid",
+          gap: 2,
+          gridTemplateRows: "50px repeat(7, minmax(100px, 1fr))",
+          p: 1,
         }}
+        variant="outlined"
       >
         {dayLabels.map((day, index) => {
           const dayContent = (
             <Box
-              key={day}
               display="grid"
-              gridTemplateColumns="150px repeat(4, minmax(200px, 1fr))"
               gap={2}
+              gridTemplateColumns="150px repeat(4, minmax(200px, 1fr))"
+              key={day}
             >
-              <Box display="flex" alignItems="center" pl={3}>
+              <Box alignItems="center" display="flex" pl={3}>
                 <Typography component="h3" level="title-md">
                   {day}
                 </Typography>
@@ -64,11 +64,11 @@ export function Calendar() {
             return (
               <Fragment key="blank">
                 <Box
-                  key="meal-type"
+                  alignItems="center"
                   display="grid"
                   gridTemplateColumns="150px repeat(4, minmax(200px, 1fr))"
                   justifyItems="center"
-                  alignItems="center"
+                  key="meal-type"
                 >
                   <Box />
                   <Typography component="h3" level="title-md">

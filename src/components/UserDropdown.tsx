@@ -1,13 +1,14 @@
+import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import { Avatar, Dropdown, ListDivider, Menu, MenuButton, MenuItem } from "@mui/joy";
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 
-import { Avatar, Dropdown, ListDivider, Menu, MenuButton, MenuItem } from "@mui/joy";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
-import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import { auth } from "~/server/auth";
-import { UserAvatar } from "./UserAvatar";
 import { SignOut } from "~/app/auth/components/Actions";
+import { auth } from "~/server/auth";
+
+import { UserAvatar } from "./UserAvatar";
 
 export async function UserDropdown() {
   const session = await auth();
@@ -15,9 +16,9 @@ export async function UserDropdown() {
   return (
     <Dropdown>
       <MenuButton
-        variant="plain"
         size="sm"
-        sx={{ maxWidth: "32px", maxHeight: "32px", borderRadius: "999px" }}
+        sx={{ borderRadius: "999px", maxHeight: "32px", maxWidth: "32px" }}
+        variant="plain"
       >
         <UserAvatar user={session?.user} />
       </MenuButton>
@@ -25,17 +26,17 @@ export async function UserDropdown() {
         placement="bottom-end"
         size="sm"
         sx={{
-          zIndex: "99999",
-          p: 1,
-          gap: 1,
           "--ListItem-radius": "var(--joy-radius-sm)",
+          gap: 1,
+          p: 1,
+          zIndex: "99999",
         }}
       >
         <MenuItem>
           <Box
             sx={{
-              display: "flex",
               alignItems: "center",
+              display: "flex",
             }}
           >
             <Avatar src={session?.user?.image || "/chef-avatar.png"} sx={{ borderRadius: "50%" }} />
@@ -59,7 +60,7 @@ export async function UserDropdown() {
           Settings
         </MenuItem>
         <ListDivider />
-        <SignOut startDecorator={<LogoutRoundedIcon />} fullWidth />
+        <SignOut fullWidth startDecorator={<LogoutRoundedIcon />} />
       </Menu>
     </Dropdown>
   );

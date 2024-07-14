@@ -1,18 +1,18 @@
 "use client";
 
-import * as React from "react";
-import Image from "next/image";
 import {
+  Box,
   // Card,
   Button,
   Container,
-  Box,
   List,
   ListItem,
 } from "@mui/joy";
 // import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import Typography, { typographyClasses } from "@mui/joy/Typography";
+import Image from "next/image";
 import Link from "next/link";
+import * as React from "react";
 
 export default function LandingScreen({
   children,
@@ -21,13 +21,13 @@ export default function LandingScreen({
   return (
     <Container
       sx={(theme) => ({
-        position: "relative",
-        minHeight: "100vh",
+        alignItems: "center",
         display: "flex",
         flexDirection: reversed ? "column-reverse" : "column",
-        alignItems: "center",
-        py: 10,
         gap: 4,
+        minHeight: "100vh",
+        position: "relative",
+        py: 10,
         [theme.breakpoints.up(834)]: {
           flexDirection: "row",
           gap: 6,
@@ -38,35 +38,35 @@ export default function LandingScreen({
       })}
     >
       <Image
-        priority
-        width={500}
-        height={500}
-        src="/bulky-guy-chef-list-removebg-preview.png"
         alt="cutlery, veggies and list of ingredients"
+        height={500}
+        priority
+        src="/bulky-guy-chef-list-removebg-preview.png"
+        width={500}
       />
       <Box
         sx={(theme) => ({
+          [`& .${typographyClasses.root}`]: {
+            textWrap: "balance",
+          },
+          alignItems: "center",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          flexShrink: 999,
           gap: "1rem",
           maxWidth: "50ch",
           textAlign: "center",
-          flexShrink: 999,
           [theme.breakpoints.up(834)]: {
-            minWidth: 420,
             alignItems: "flex-start",
+            minWidth: 420,
             textAlign: "initial",
-          },
-          [`& .${typographyClasses.root}`]: {
-            textWrap: "balance",
           },
         })}
       >
         <Typography
-          level="h1"
-          fontWeight="xl"
           fontSize="clamp(1.875rem, 1.3636rem + 2.1818vw, 3rem)"
+          fontWeight="xl"
+          level="h1"
         >
           Simplify meals and save time with a meal planner & shopping list
         </Typography>
@@ -95,7 +95,7 @@ export default function LandingScreen({
           </div>
         </Card> */}
         {/* <Link href="> */}
-        <Button size="lg" component={Link} href="/auth/sign-up">
+        <Button component={Link} href="/auth/sign-in" size="lg">
           Get Started
         </Button>
         {/* </Link> */}

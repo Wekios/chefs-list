@@ -1,37 +1,28 @@
+import { Box, Typography } from "@mui/joy";
 import { Fragment } from "react";
-import { Box, Typography, Button } from "@mui/joy";
-import { RecipeList } from "./RecipeList";
-import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
 
-import { FocusTrap } from "@mui/base/FocusTrap";
+import { api } from "~/trpc/server";
+
 import AddRecipe from "./AddRecipe";
+import { RecipeList } from "./RecipeList";
 
-export function RecipeManagement() {
+export async function RecipeManagement() {
+  const recipeCount = await api.recipe.getCount();
+
   return (
     <Fragment>
-      <Box
-        sx={{
-          p: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box sx={{ alignItems: "center", gap: 1 }}>
+      <Box sx={{ alignItems: "center", display: "flex", justifyContent: "space-between", p: 2 }}>
+        <Box>
           <Typography level="title-lg" textColor="text.secondary">
-            My inbox
+            My recipes
           </Typography>
           <Typography level="title-sm" textColor="text.tertiary">
-            5 emails
+            {recipeCount} {recipeCount === 1 ? "recipe" : "recipes"}
           </Typography>
         </Box>
         <AddRecipe />
-        {/* <FocusTrap open={false} disableAutoFocus disableEnforceFocus> */}
-        {/* <div>write email</div> */}
-        {/* <WriteEmail open={open} onClose={() => setOpen(false)} /> */}
-        {/* </FocusTrap> */}
       </Box>
-      <RecipeList />
+      <RecipeList count={recipeCount} />
     </Fragment>
   );
 }

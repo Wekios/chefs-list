@@ -1,12 +1,13 @@
-import { Avatar } from "@mui/joy";
 import type { User } from "next-auth";
+
+import { Avatar } from "@mui/joy";
 
 export function UserAvatar({ user }: { user?: User }) {
   return (
     <Avatar
-      src={user?.image || "/chef-avatar.png"}
       slotProps={{ img: { referrerPolicy: "no-referrer" } }}
-      sx={{ maxWidth: "32px", maxHeight: "32px", backgroundColor: "white" }}
+      src={user?.image || "/chef-avatar.png"}
+      sx={{ backgroundColor: "white", maxHeight: "32px", maxWidth: "32px" }}
     />
   );
 }
