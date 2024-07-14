@@ -3,8 +3,8 @@ import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 import { AuthError } from "next-auth";
 
-import { signUpSchema } from "~/app/validation";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { signUpSchema } from "~/validation";
 
 export const authRouter = createTRPCRouter({
   signUp: publicProcedure.input(signUpSchema).mutation(async ({ ctx, input }) => {

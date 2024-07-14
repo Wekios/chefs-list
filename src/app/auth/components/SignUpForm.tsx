@@ -5,8 +5,8 @@ import { Box, Button, FormControl, FormHelperText, FormLabel, Input, Typography 
 import { signIn } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 
-import { type SignUpSchema, signUpSchema } from "~/app/validation";
 import { api } from "~/trpc/react";
+import { type SignUpSchema, signUpSchema } from "~/validation";
 
 export function SignUpForm() {
   const { control, handleSubmit } = useForm<SignUpSchema>({

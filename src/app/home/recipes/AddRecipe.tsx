@@ -26,8 +26,8 @@ import { IngredientUnit, MealType } from "@prisma/client";
 import { Fragment, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
-import { AddRecipeSchema } from "~/app/validation";
 import { api } from "~/trpc/react";
+import { AddRecipeSchema } from "~/validation";
 
 const defaultIngredient = { name: "", quantity: 1, unit: IngredientUnit.PIECE };
 

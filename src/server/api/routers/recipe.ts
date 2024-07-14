@@ -1,5 +1,5 @@
-import { addRecipeSchema } from "~/app/validation";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import { addRecipeSchema } from "~/validation";
 
 export const recipeRouter = createTRPCRouter({
   create: protectedProcedure.input(addRecipeSchema).mutation(async ({ ctx, input }) => {

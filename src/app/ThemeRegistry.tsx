@@ -2,8 +2,7 @@
 import createCache, { type Options } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import CssBaseline from "@mui/joy/CssBaseline";
-import { CssVarsProvider, getInitColorSchemeScript } from "@mui/joy/styles";
-import { extendTheme } from "@mui/joy/styles";
+import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
 import { useServerInsertedHTML } from "next/navigation";
 import { type ReactNode, useState } from "react";
 

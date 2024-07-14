@@ -7,8 +7,8 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { ZodError, z } from "zod";
 
-import { signInSchema } from "~/app/validation";
 import { db } from "~/server/db";
+import { signInSchema } from "~/validation";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),

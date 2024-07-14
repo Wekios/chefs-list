@@ -8,5 +8,9 @@ export default async function Home() {
 
   if (session?.user) redirect("/home");
 
-  return <LandingScreen />;
+  return (
+    <main>
+      <LandingScreen />
+    </main>
+  );
 }

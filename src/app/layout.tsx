@@ -18,9 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html data-joy-color-scheme="dark" lang="en">
       <body className={inter.className}>
         <ThemeRegistry options={{ key: "joy" }}>
-          <TRPCReactProvider>
-            <main>{children}</main>
-          </TRPCReactProvider>
+          <TRPCReactProvider>{children}</TRPCReactProvider>
         </ThemeRegistry>
       </body>
     </html>

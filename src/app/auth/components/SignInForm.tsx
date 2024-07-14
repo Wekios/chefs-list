@@ -3,10 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, FormControl, FormHelperText, FormLabel, Input, Typography } from "@mui/joy";
 import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
 import { Controller, useForm } from "react-hook-form";
 
-import { type SignInSchema, signInSchema } from "~/app/validation";
+import { type SignInSchema, signInSchema } from "~/validation";
 
 import { authenticate } from "../sign-in/actions";
 

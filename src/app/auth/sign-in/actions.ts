@@ -2,8 +2,8 @@
 
 import { AuthError } from "next-auth";
 
-import { SignInSchema } from "~/app/validation";
 import { signIn } from "~/server/auth";
+import { SignInSchema } from "~/validation";
 
 export async function authenticate(signInData: SignInSchema) {
   try {
