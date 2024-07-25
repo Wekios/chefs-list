@@ -5,8 +5,8 @@ import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import NextLink from "next/link";
 
-import { SocialSignIn } from "../components/Actions";
 import { SignInForm } from "../components/SignInForm";
+import { SocialSignIn } from "../components/SocialSignInButton";
 
 export default function SignInPage() {
   return (

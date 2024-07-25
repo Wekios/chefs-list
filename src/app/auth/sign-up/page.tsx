@@ -1,8 +1,8 @@
 import { Divider, Link, Stack, Typography } from "@mui/joy";
 import NextLink from "next/link";
 
-import { SocialSignIn } from "../components/Actions";
 import { SignUpForm } from "../components/SignUpForm";
+import { SocialSignIn } from "../components/SocialSignInButton";
 
 export default function SignUpPage() {
   return (

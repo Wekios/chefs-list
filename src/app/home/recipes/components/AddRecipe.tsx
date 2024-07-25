@@ -31,7 +31,7 @@ import { AddRecipeSchema } from "~/validation";
 
 const defaultIngredient = { name: "", quantity: 1, unit: IngredientUnit.PIECE };
 
-export default function AddRecipe() {
+export function AddRecipe() {
   const [open, setOpen] = useState(false);
 
   const utils = api.useUtils();
@@ -75,7 +75,7 @@ export default function AddRecipe() {
   return (
     <Fragment>
       <Button onClick={() => setOpen(true)} size="sm" startDecorator={<CreateRoundedIcon />}>
-        Add new recipe
+        Add new
       </Button>
       <Modal onClose={() => setOpen(false)} open={open}>
         <ModalOverflow>

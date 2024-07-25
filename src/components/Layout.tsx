@@ -60,10 +60,7 @@ function SideNav(props: BoxProps) {
           bgcolor: "background.surface",
           borderColor: "divider",
           borderRight: "1px solid",
-          display: {
-            sm: "initial",
-            xs: "none",
-          },
+          display: { sm: "initial", xs: "none" },
           p: 2,
         },
         ...(Array.isArray(props.sx) ? props.sx : [props.sx]),

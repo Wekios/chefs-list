@@ -1,6 +1,6 @@
 import type { Session } from "next-auth";
 
-export default function SessionData({ session }: { session: Session | null }) {
+export function SessionData({ session }: { session: Session | null }) {
   console.log("session", session);
 
   if (session?.user) {

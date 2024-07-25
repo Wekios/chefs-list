@@ -29,13 +29,14 @@ const dayLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satu
 
 export function Calendar() {
   return (
-    <Box gridColumn="2/-1" p={2}>
+    <Box sx={{ height: "100%", p: 2 }}>
       <Sheet
         sx={{
           borderRadius: "sm",
           display: "grid",
           gap: 2,
           gridTemplateRows: "50px repeat(7, minmax(100px, 1fr))",
+          height: "100%",
           p: 1,
         }}
         variant="outlined"

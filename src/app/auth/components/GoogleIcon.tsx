@@ -1,6 +1,6 @@
 import SvgIcon from "@mui/joy/SvgIcon";
 
-export default function GoogleIcon() {
+export function GoogleIcon() {
   return (
     <SvgIcon fontSize="lg">
       <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
