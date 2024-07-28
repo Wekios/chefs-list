@@ -1,5 +1,5 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
-import { addRecipeSchema } from "~/validation";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { addRecipeSchema, recipeIdSchema } from "~/validation";
 
 export const recipeRouter = createTRPCRouter({
   create: protectedProcedure.input(addRecipeSchema).mutation(async ({ ctx, input }) => {
@@ -21,14 +21,27 @@ export const recipeRouter = createTRPCRouter({
       },
     });
   }),
-  getAll: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.recipe.findMany({
-      orderBy: { updatedAt: "desc" },
+  getAll: protectedProcedure.query(async ({ ctx }) =>
+    ctx.db.recipe.findMany({ orderBy: { updatedAt: "desc" } }),
+  ),
+  getCount: protectedProcedure.query(async ({ ctx }) => ctx.db.recipe.count()),
+  getOne: protectedProcedure.input(recipeIdSchema).query(async ({ ctx, input }) => {
+    const recipe = await ctx.db.recipe.findUnique({
+      include: { createdBy: { select: { name: true } } },
+      where: { createdBy: { id: ctx.session.user.id }, id: input.id },
     });
+
+    // TODO: figure out how to get session.user.id with OAuth
+    console.log("ctx.session.user.id", ctx.session.user);
+    console.log(recipe);
+
+    if (!recipe) {
+      throw new Error("Recipe not found");
+    }
+
+    return { ...recipe, createdBy: recipe.createdBy.name };
   }),
-  getCount: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.recipe.count();
-  }),
+
   // hello: publicProcedure
   //   .input(z.object({ text: z.string() }))
   //   .query(({ input }) => {

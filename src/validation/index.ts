@@ -26,3 +26,6 @@ export const addRecipeSchema = z.object({
   mealType: z.array(z.nativeEnum(MealType)),
   name: z.string().min(1),
 });
+
+export type RecipeIdSchema = z.infer<typeof addRecipeSchema>;
+export const recipeIdSchema = z.object({ id: z.number() });

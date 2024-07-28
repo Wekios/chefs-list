@@ -5,7 +5,7 @@ import { decode, encode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { ZodError, z } from "zod";
+import { ZodError } from "zod";
 
 import { db } from "~/server/db";
 import { signInSchema } from "~/validation";
