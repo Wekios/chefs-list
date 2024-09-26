@@ -14,7 +14,11 @@ export async function User() {
 
   return (
     <Dropdown>
-      <MenuButton size="sm" sx={{ gap: "8px", padding: "0", textAlign: "left" }} variant="plain">
+      <MenuButton
+        size="sm"
+        sx={{ gap: 1, justifyContent: "flex-start", textAlign: "left" }}
+        variant="plain"
+      >
         <Avatar
           size="sm"
           slotProps={{ img: { referrerPolicy: "no-referrer" } }}
@@ -37,7 +41,10 @@ export async function User() {
       >
         <MenuItem>
           <Box sx={{ alignItems: "center", display: "flex" }}>
-            <Avatar src={session?.user?.image || "/chef-avatar.png"} sx={{ borderRadius: "50%" }} />
+            <Avatar
+              src={session?.user?.image || "/chef-avatar.png"}
+              sx={{ backgroundColor: "white", borderRadius: "50%" }}
+            />
             <Box sx={{ ml: 1.5 }}>
               <Typography level="title-sm" textColor="text.primary">
                 {session?.user?.name}

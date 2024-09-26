@@ -31,12 +31,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           return user;
         } catch (error) {
-          // Return `null` to indicate that the credentials are invalid
           if (error instanceof ZodError) {
             console.log("Zod validation failed");
             return null;
           }
-          return null;
+          return null; // Return `null` to indicate that the credentials are invalid
         }
       },
       credentials: { email: {}, password: {} },

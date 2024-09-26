@@ -20,6 +20,7 @@ import Typography from "@mui/joy/Typography";
 import { useState } from "react";
 
 import { api } from "~/trpc/react";
+import { formatDate } from "~/utils/formatting";
 
 export default function RecipeIdPage({ params }: { params: { id: string } }) {
   const recipe = api.recipe.getOne.useQuery({ id: Number(params.id) });
@@ -33,6 +34,12 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
   const handleSnackbarClose = (index: number) => {
     setOpen((prev) => ({ ...prev, [index]: false }));
   };
+
+  if (recipe.status === "pending") {
+    return <div>Loading...</div>;
+  } else if (recipe.status === "error") {
+    return <div>Something went wrong</div>;
+  }
 
   return (
     <Box sx={{ p: 2 }}>
@@ -50,10 +57,11 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
             <Avatar src="https://i.pravatar.cc/40?img=3" srcSet="https://i.pravatar.cc/80?img=3" />
             <Box sx={{ ml: 2 }}>
               <Typography level="title-sm" mb={0.5} textColor="text.primary">
-                Alex Jonnold
+                {recipe.data.createdBy}
               </Typography>
               <Typography level="body-xs" textColor="text.tertiary">
-                21 Oct 2022
+                {/* 21 Oct 2022 */}
+                {formatDate(recipe.data?.createdAt)}
               </Typography>
             </Box>
           </Box>
@@ -147,15 +155,16 @@ export default function RecipeIdPage({ params }: { params: { id: string } }) {
         <Divider sx={{ mt: 2 }} />
         <Box sx={{ alignItems: "start", display: "flex", flexDirection: "column", py: 2 }}>
           <Typography
-            endDecorator={
-              <Chip color="warning" component="span" size="sm" variant="outlined">
-                Personal
+            endDecorator={recipe.data.mealType.map((mealType) => (
+              <Chip color="warning" key={mealType} size="sm" variant="outlined">
+                {/* <Chip color="warning" component="span" size="sm" variant="outlined"> */}
+                {mealType}
               </Chip>
-            }
+            ))}
             level="title-lg"
             textColor="text.primary"
           >
-            Details for our Yosemite Park hike
+            {recipe.data.name}
           </Typography>
           <Box
             sx={{

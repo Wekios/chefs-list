@@ -17,14 +17,7 @@ import { useParams, usePathname } from "next/navigation";
 import React, { Fragment } from "react";
 
 import { api } from "~/trpc/react";
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
+import { formatDate } from "~/utils/formatting";
 
 export function RecipeList({ count }: { count: number }) {
   const selectedRecipeId = Number(useParams<{ id?: string }>().id);
@@ -51,7 +44,7 @@ export function RecipeList({ count }: { count: number }) {
         </Fragment>
       ));
   } else if (status === "error") {
-    return <div>aaaa</div>;
+    return <div>Something went wrong</div>;
   }
 
   return (
