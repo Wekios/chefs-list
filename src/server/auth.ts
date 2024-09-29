@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcrypt";
-import NextAuth from "next-auth";
-import { decode, encode } from "next-auth/jwt";
+import NextAuth, { type DefaultSession } from "next-auth";
+import { JWT, decode, encode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -10,8 +10,30 @@ import { ZodError } from "zod";
 import { db } from "~/server/db";
 import { signInSchema } from "~/validation";
 
+declare module "next-auth/jwt" {
+  interface JWT {
+    /** OpenID ID Token */
+    id?: string;
+  }
+}
+
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (token.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
   jwt: { decode, encode },
   providers: [
     GoogleProvider,
@@ -23,7 +45,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           const user = await db.user.findUnique({ where: { email: email } });
 
-          if (!user || !user.password) throw new Error("User not found.");
+          if (!user?.password) throw new Error("User not found.");
 
           const passwordMatch = await bcrypt.compare(password, user.password);
 

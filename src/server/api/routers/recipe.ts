@@ -31,8 +31,6 @@ export const recipeRouter = createTRPCRouter({
       where: { createdBy: { id: ctx.session.user.id }, id: input.id },
     });
 
-    // TODO: figure out how to get session.user.id with OAuth
-    console.log("ctx.session.user.id", ctx.session.user);
     console.log(recipe);
 
     if (!recipe) {
