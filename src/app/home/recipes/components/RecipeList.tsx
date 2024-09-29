@@ -13,7 +13,7 @@ import {
 } from "@mui/joy";
 import Image from "next/image";
 import NextLink from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import React, { Fragment } from "react";
 
 import { api } from "~/trpc/react";
@@ -62,7 +62,7 @@ export function RecipeList({ count }: { count: number }) {
       )}
 
       <List sx={{ opacity: isFetching ? "0.5" : "1" }}>
-        {recipes.map((recipe, idx) => (
+        {recipes.map((recipe) => (
           <React.Fragment key={recipe.id}>
             <ListItem>
               <ListItemButton
@@ -76,11 +76,6 @@ export function RecipeList({ count }: { count: number }) {
                 sx={{ p: 2 }}
               >
                 <ListItemDecorator sx={{ alignSelf: "flex-start" }}>
-                  {/* <Avatar
-                    alt=""
-                    // srcSet={`https://i.pravatar.cc/80?img=${idx}`}
-                    src={}
-                  /> */}
                   <Image alt="" height={40} src="/fries.png" width={40} />
                 </ListItemDecorator>
                 <Box sx={{ pl: 2, width: "100%" }}>

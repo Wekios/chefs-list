@@ -1,5 +1,4 @@
 import { Box, Sheet, Typography } from "@mui/joy";
-import { Fragment } from "react";
 
 import { api } from "~/trpc/server";
 

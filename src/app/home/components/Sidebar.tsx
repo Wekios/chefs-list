@@ -27,7 +27,6 @@ export function Sidebar() {
         },
         transition: "transform 0.4s, width 0.4s",
         width: "var(--Sidebar-width)",
-        zIndex: 10000,
       }}
     >
       <GlobalStyles styles={{ ":root": { "--Sidebar-width": "210px" } }} />

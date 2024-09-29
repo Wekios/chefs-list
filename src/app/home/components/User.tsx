@@ -5,6 +5,7 @@ import { Avatar, Button, Dropdown, ListDivider, Menu, MenuButton, MenuItem } fro
 import Box from "@mui/joy/Box";
 import Typography from "@mui/joy/Typography";
 
+import { UserAvatar } from "~/components/UserAvatar";
 import { auth, signOut } from "~/server/auth";
 
 const textEllipsisStyles = { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" };
@@ -19,12 +20,7 @@ export async function User() {
         sx={{ gap: 1, justifyContent: "flex-start", textAlign: "left" }}
         variant="plain"
       >
-        <Avatar
-          size="sm"
-          slotProps={{ img: { referrerPolicy: "no-referrer" } }}
-          src={session?.user?.image || "/chef-avatar.png"}
-          sx={{ backgroundColor: "white" }}
-        />
+        <UserAvatar size="sm" src={session?.user?.image} />
         <Box sx={{ overflow: "hidden" }}>
           <Typography level="title-sm" sx={textEllipsisStyles}>
             {session?.user?.name}
