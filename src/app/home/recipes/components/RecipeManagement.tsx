@@ -2,7 +2,7 @@ import { Box, Sheet, Typography } from "@mui/joy";
 
 import { api } from "~/trpc/server";
 
-import { AddRecipe } from "./AddRecipe";
+import { AddRecipeToggle } from "./AddRecipeToggle";
 import { RecipeList } from "./RecipeList";
 
 export async function RecipeManagement() {
@@ -25,7 +25,7 @@ export async function RecipeManagement() {
             {recipeCount} {recipeCount === 1 ? "recipe" : "recipes"}
           </Typography>
         </Box>
-        <AddRecipe />
+        <AddRecipeToggle />
       </Box>
       <RecipeList count={recipeCount} />
     </Sheet>
