@@ -68,6 +68,14 @@ enum IngredientCategory {
   DAIRY
   SPICE
   VEGETABLE
+  GRAIN
+  LEGUME
+  SEAFOOD
+  NUT
+  HERB
+  BEVERAGE
+  CONDIMENT
+  SWEETENER
 }
 
 // Necessary for Next auth

@@ -1,47 +1,38 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 import { ingredientList, recipeList } from "./seedData";
 
-const createPrismaClient = () =>
-  new PrismaClient({
-    log: ["query", "error", "warn"],
-  });
+const createPrismaClient = () => new PrismaClient({ log: ["query", "error", "warn"] });
 
 const db = createPrismaClient();
 
-const USER_ID = "clw22cg6l0001a0qck6jtvyx4";
-
 const run = async () => {
-  // delete all data
+  // TODO: delete all data
 
-  // NOTE: user has to be already created
+  const salt = bcrypt.genSaltSync();
+  const hashedPassword = bcrypt.hashSync("password", salt);
+
+  const user = await db.user.upsert({
+    create: {
+      email: "user@test.com",
+      name: "Veljko Blagojevic",
+      password: hashedPassword,
+    },
+    update: {},
+    where: { email: "user@test.com" },
+  });
 
   // create ingredients
   await Promise.all(
-    ingredientList.map(async (ingredient) => {
-      return db.ingredient.create({
-        data: { ...ingredient },
-      });
-    }),
+    ingredientList.map(async (ingredient) => db.ingredient.create({ data: ingredient })),
   );
 
   await Promise.all(
     recipeList.map(async (recipe) => {
       return db.recipe.upsert({
-        // data: {
-        //   name: ingredient.name,
-        //   description: ingredient.description,
-        //   mealType: ingredient.mealType,
-        //   createdBy: { connect: { id: USER_ID } },
-        //   mealIngredient: {
-        //     create: ingredient.mealIngredient.map((ingredient) => ({
-        //       quantity: ingredient.quantity,
-        //       unit: ingredient.unit,
-        //       ingredient: { connect: { id: ingredient.ingredientId } },
-        //     })),
-        //   },
         create: {
-          createdBy: { connect: { id: USER_ID } },
+          createdBy: { connect: { id: user.id } },
           description: recipe.description,
           mealIngredient: {
             create: recipe.mealIngredient.map((ingredient) => ({
@@ -54,7 +45,6 @@ const run = async () => {
           name: recipe.name,
         },
         update: {},
-        // },
         where: { id: recipe.id },
       });
     }),

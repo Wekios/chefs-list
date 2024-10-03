@@ -1,0 +1,1 @@
+Create a sprite of these icons on a white background. Don't duplicate results: steak, fish dish, chicken dish, tofu, lentils, beans, sandwich, burger, pasta, pizza, tortillas, rice, vegetables, fruits, oil, milkshake, smoothie, nuts, granola, whey protein.
