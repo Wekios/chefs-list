@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Chef's list",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html data-joy-color-scheme="dark" lang="en">
       <body className={inter.className}>

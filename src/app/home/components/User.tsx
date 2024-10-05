@@ -38,7 +38,7 @@ export async function User() {
         <MenuItem>
           <Box sx={{ alignItems: "center", display: "flex" }}>
             <Avatar
-              src={session?.user?.image || "/chef-avatar.png"}
+              src={session?.user?.image ?? "/chef-avatar.png"}
               sx={{ backgroundColor: "white", borderRadius: "50%" }}
             />
             <Box sx={{ ml: 1.5 }}>

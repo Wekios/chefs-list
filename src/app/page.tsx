@@ -1,15 +1,8 @@
 import { Box, Button, Container, List, ListItem, Typography } from "@mui/joy";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-import { auth } from "~/server/auth";
-
-export default async function Home() {
-  const session = await auth();
-
-  if (session?.user) redirect("/home");
-
+export default async function RootPage() {
   return (
     <main>
       <Container

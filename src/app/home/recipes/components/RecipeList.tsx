@@ -19,30 +19,36 @@ import React, { Fragment } from "react";
 import { api } from "~/trpc/react";
 import { formatDate } from "~/utils/formatting";
 
+const createSkeletons = (count: number) => {
+  const skeletons = [];
+  for (let i = 0; i < count; i++) {
+    skeletons.push(
+      <Fragment key={i}>
+        <Box sx={{ display: "flex", gap: 2, m: "auto", padding: 2 }}>
+          <Skeleton height={40} variant="circular" width={40} />
+          <Box sx={{ display: "flex", flexDirection: "column", flexGrow: "1", gap: 2 }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Skeleton height="0.75em" variant="rectangular" width={100} />
+              <Skeleton height="0.75em" variant="rectangular" width={80} />
+            </Box>
+            <Skeleton height="0.9em" variant="rectangular" width={170} />
+            <Skeleton height="0.75em" variant="rectangular" width={140} />
+          </Box>
+        </Box>
+        <ListDivider sx={{ m: 0 }} />
+      </Fragment>,
+    );
+  }
+  return skeletons;
+};
+
 export function RecipeList({ count }: { count: number }) {
   const selectedRecipeId = Number(useParams<{ id?: string }>().id);
 
   const { data: recipes, isFetching, status } = api.recipe.getAll.useQuery();
 
   if (status === "pending") {
-    return Array(count)
-      .fill(0)
-      .map((_, idx) => (
-        <Fragment key={idx}>
-          <Box sx={{ display: "flex", gap: 2, m: "auto", padding: 2 }}>
-            <Skeleton height={40} variant="circular" width={40} />
-            <Box sx={{ display: "flex", flexDirection: "column", flexGrow: "1", gap: 2 }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Skeleton height="0.75em" variant="rectangular" width={100} />
-                <Skeleton height="0.75em" variant="rectangular" width={80} />
-              </Box>
-              <Skeleton height="0.9em" variant="rectangular" width={170} />
-              <Skeleton height="0.75em" variant="rectangular" width={140} />
-            </Box>
-          </Box>
-          <ListDivider sx={{ m: 0 }} />
-        </Fragment>
-      ));
+    return createSkeletons(count);
   } else if (status === "error") {
     return <div>Something went wrong</div>;
   }
@@ -119,50 +125,6 @@ export function RecipeList({ count }: { count: number }) {
           </React.Fragment>
         ))}
         <ListDivider sx={{ m: 0 }} />
-        {/* {data.map((item, index) => (
-        <React.Fragment key={index}>
-          <ListItem>
-            <ListItemButton
-              component={NextLink}
-              href={`/home/recipes/${item.id}`}
-              {...(selectedRecipeId === Number(item.id) && {
-                selected: true,
-                color: "neutral",
-              })}
-              sx={{ p: 2 }}
-            >
-              <ListItemDecorator sx={{ alignSelf: "flex-start" }}>
-                <Avatar alt="" srcSet={item.avatar2x} src={item.avatar} />
-              </ListItemDecorator>
-              <Box sx={{ pl: 2, width: "100%" }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                    <Typography level="body-xs">{item.name}</Typography>
-                    <Box
-                      sx={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "99px",
-                        bgcolor: item.color,
-                      }}
-                    />
-                  </Box>
-                  <Typography level="body-xs" textColor="text.tertiary">
-                    {item.date}
-                  </Typography>
-                </Box>
-                <div>
-                  <Typography level="title-sm" sx={{ mb: 0.5 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography level="body-sm">{item.body}</Typography>
-                </div>
-              </Box>
-            </ListItemButton>
-          </ListItem>
-          <ListDivider sx={{ m: 0 }} />
-        </React.Fragment>
-      ))} */}
       </List>
     </Box>
   );

@@ -48,15 +48,12 @@ export function Navigation() {
         size="sm"
         sx={{ "--List-nestedInsetStart": "30px", "--ListItem-radius": "4px", gap: 1 }}
       >
-        <ListSubheader sx={{ fontWeight: "800", letterSpacing: "2px" }}>Browse</ListSubheader>
+        <ListSubheader component="li" sx={{ fontWeight: "800", letterSpacing: "2px" }}>
+          Browse
+        </ListSubheader>
         {URL_LIST.map(({ href, icon, label }) => (
           <ListItem key={href}>
-            <ListItemButton
-              component={NextLink}
-              href={href}
-              role="menuitem"
-              selected={pathname === href}
-            >
+            <ListItemButton component={NextLink} href={href} selected={pathname === href}>
               {icon}
               <ListItemContent>
                 <Typography level="title-sm">{label}</Typography>
